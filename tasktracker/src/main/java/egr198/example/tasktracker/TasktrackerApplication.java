@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-//@RestController
+@RestController
 public class TasktrackerApplication {
 
 	public static void main(String[] args) {
@@ -17,9 +17,9 @@ public class TasktrackerApplication {
 
 	}
 
-	// @GetMapping("/")
-	// public String apiRoot() {
-	// 	return "Hello World";
-	// }
+	@GetMapping("/")
+	public String apiRoot() {
+		return "Hello World";
+	}
 
 }
