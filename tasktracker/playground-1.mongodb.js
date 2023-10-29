@@ -11,9 +11,9 @@
 
 // Select the database to use.
 use('tasktracker_db');
-const collection = 'tasks'
+const collection = 'folders'
 
-db.tasks.find({})
+// db.folders.find({})
 
 // db.tasks.insertMany([
 //   {"_id" : 1, 
@@ -33,8 +33,17 @@ db.tasks.find({})
 //   "priority" : "Low"}
 // ])
 
-//db.tasks.deleteMany( {} )
+//db.folders.deleteOne( {"_id" : 3} )
 
+db.folders.aggregate([
+  {
+    $lookup: {
+      from: "tasks",
+      pipeline: [ ],
+      as: "tasks"
+    }
+  }
+])
 
 
 // // Insert a few documents into the sales collection.
