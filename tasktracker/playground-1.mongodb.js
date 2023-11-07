@@ -11,9 +11,9 @@
 
 // Select the database to use.
 use('tasktracker_db');
-const collection = 'folders'
+const collection = 'tasks'
 
-// db.folders.find({})
+// db.tasks.find({})
 
 // db.tasks.insertMany([
 //   {"_id" : 1, 
@@ -44,6 +44,8 @@ db.folders.aggregate([
     }
   }
 ])
+
+// db.folders.insert()
 
 
 // // Insert a few documents into the sales collection.
