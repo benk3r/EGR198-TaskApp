@@ -1,40 +1,35 @@
 package egr198.example.tasktracker;
 
+import static com.mongodb.client.model.Filters.eq;
 
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoException;
-import com.mongodb.ServerApi;
-import com.mongodb.ServerApiVersion;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 public class QuickStart {
-    public static void main(String[] args) {
-        String connectionString = "mongodb+srv://beccarh:tm2YZ9CFoZ6cO5qT@cluster0.k1njx6t.mongodb.net/?retryWrites=true&w=majority";
+    public static void main( String[] args ) {
 
-        ServerApi serverApi = ServerApi.builder()
-                .version(ServerApiVersion.V1)
-                .build();
+        // Replace the placeholder with your MongoDB deployment's connection string
+        String uri = 
+        //"mongodb://localhost:8080";
+        "mongodb+srv://beccarh:tm2YZ9CFoZ6cO5qT@cluster0.k1njx6t.mongodb.net/?retryWrites=true&w=majority";
 
-        MongoClientSettings settings = MongoClientSettings.builder()
-                .applyConnectionString(new ConnectionString(connectionString))
-                .serverApi(serverApi)
-                .build();
+        try (MongoClient mongoClient = MongoClients.create(uri)) {
+            MongoDatabase database = mongoClient.getDatabase("sample_mflix");
+            MongoCollection<Document> collection = database.getCollection("movies");
 
-        // Create a new client and connect to the server
-        try (MongoClient mongoClient = MongoClients.create(settings)) {
-            try {
-                // Send a ping to confirm a successful connection
-                MongoDatabase database = mongoClient.getDatabase("admin");
-                database.runCommand(new Document("ping", 1));
-                System.out.println("Pinged your deployment. You successfully connected to MongoDB!");
-            } catch (MongoException e) {
-                e.printStackTrace();
+            Document doc = collection.find(eq("title", "Back to the Future")).first();
+            if (doc != null) {
+                System.out.println(doc.toJson());
+            } else {
+                System.out.println("No matching documents found.");
             }
         }
     }
 }
+
+
 
