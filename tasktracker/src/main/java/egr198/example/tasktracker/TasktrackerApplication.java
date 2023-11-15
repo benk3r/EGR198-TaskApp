@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TasktrackerApplication {
 
+
+	public TasktrackerApplication(){};
+
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(TasktrackerApplication.class, args);
 
